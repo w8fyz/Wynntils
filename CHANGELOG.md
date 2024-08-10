@@ -1,3 +1,15 @@
+## [2.0.0-beta.20](https://github.com/Wynntils/Wynntils/compare/v2.0.0-beta.19...v2.0.0-beta.20) (2024-08-10)
+
+
+### Bug Fixes
+
+* Fix TCC boss scoreboard pattern [skip ci] ([#2719](https://github.com/Wynntils/Wynntils/issues/2719)) ([d06812e](https://github.com/Wynntils/Wynntils/commit/d06812ef8a35a30f3e1d35016c98e62627c9f357))
+
+
+### Miscellaneous Chores
+
+* [auto-generated] Update urls.json [ci skip] ([#2720](https://github.com/Wynntils/Wynntils/issues/2720)) ([f2aae55](https://github.com/Wynntils/Wynntils/commit/f2aae55bc53ad706126408254acdadb1927bad1e))
+
 ## [2.0.0-beta.19](https://github.com/Wynntils/Wynntils/compare/v2.0.0-beta.18...v2.0.0-beta.19) (2024-08-09)
 
 
@@ -6,6 +18,11 @@
 * Change ReplaceRecipeBookFeature to DisableRecipeBookFeature [skip ci] ([#2718](https://github.com/Wynntils/Wynntils/issues/2718)) ([2bf815c](https://github.com/Wynntils/Wynntils/commit/2bf815c758e3d4af1d3515fa4dd2ebaf54de442e))
 * Fix RevealNicknamesFeature by accounting for Wynn's inconsistent behavior [skip ci] ([#2716](https://github.com/Wynntils/Wynntils/issues/2716)) ([18667a5](https://github.com/Wynntils/Wynntils/commit/18667a592a9427ebc793d15b8105784095c8d123))
 * Fix TradeMarketAutoOpenChatFeature (as 2.1 changed its chat message) [skip ci] ([#2717](https://github.com/Wynntils/Wynntils/issues/2717)) ([0adb694](https://github.com/Wynntils/Wynntils/commit/0adb6941fa7c55eb71da4ae66b8be44438fc6b8d))
+
+
+### Miscellaneous Chores
+
+* **release:** v2.0.0-beta.19 [skip ci] ([4d42930](https://github.com/Wynntils/Wynntils/commit/4d42930bdbc2f97fa01d5a4fb059d0ecb7ab6917))
 
 ## [2.0.0-beta.18](https://github.com/Wynntils/Wynntils/compare/v2.0.0-beta.17...v2.0.0-beta.18) (2024-08-09)
 
@@ -54,22 +71,4 @@
 ### Miscellaneous Chores
 
 * **release:** v2.0.0-beta.16 [skip ci] ([c26ef55](https://github.com/Wynntils/Wynntils/commit/c26ef557bb699901e2bc5b55849b7c7ec44b1f89))
-
-## [2.0.0-beta.15](https://github.com/Wynntils/Wynntils/compare/v2.0.0-beta.14...v2.0.0-beta.15) (2024-08-06)
-
-
-### New Features
-
-* Add better support for confirmationless dialogues ([#2687](https://github.com/Wynntils/Wynntils/issues/2687)) ([5c74f7e](https://github.com/Wynntils/Wynntils/commit/5c74f7ecd8f95f7c14cbde24107ff21b88a96dc0))
-
-
-### Miscellaneous Chores
-
-* Fix comment typos [skip ci] ([#2704](https://github.com/Wynntils/Wynntils/issues/2704)) ([4c0226f](https://github.com/Wynntils/Wynntils/commit/4c0226f60239bb6bda806d3109da5721f20ff0df))
-* **release:** v2.0.0-beta.15 [skip ci] ([9ccfa67](https://github.com/Wynntils/Wynntils/commit/9ccfa6790be11656639d2d30a6692cbd58129451))
-
-
-### Code Refactoring
-
-* Move ChatMessageReceivedEvent and ClientsideMessageEvent to StyledText (only) [skip ci] ([#2684](https://github.com/Wynntils/Wynntils/issues/2684)) ([c18dcf6](https://github.com/Wynntils/Wynntils/commit/c18dcf65c8a2647c491ad4fd44b18c9fb591b2f2))
 
