@@ -20,6 +20,8 @@ import java.util.Optional;
 public interface IdentifiableItemProperty<T, U> extends NamedItemProperty {
     T getItemInfo();
 
+    void setItemInfo(T itemInfo);
+
     Optional<U> getItemInstance();
 
     ClassType getRequiredClass();
@@ -39,4 +41,6 @@ public interface IdentifiableItemProperty<T, U> extends NamedItemProperty {
     boolean isDefective();
 
     float getOverallPercentage();
+
+    String toString();
 }

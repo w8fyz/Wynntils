@@ -21,7 +21,7 @@ import java.util.Optional;
 
 public class CharmItem extends GameItem
         implements GearTierItemProperty, RerollableItemProperty, IdentifiableItemProperty<CharmInfo, CharmInstance> {
-    private final CharmInfo charmInfo;
+    private CharmInfo charmInfo;
     private final CharmInstance charmInstance;
 
     public CharmItem(CharmInfo charmInfo, CharmInstance charmInstance) {
@@ -32,6 +32,11 @@ public class CharmItem extends GameItem
     @Override
     public CharmInfo getItemInfo() {
         return charmInfo;
+    }
+
+    @Override
+    public void setItemInfo(CharmInfo itemInfo) {
+        this.charmInfo = charmInfo;
     }
 
     @Override

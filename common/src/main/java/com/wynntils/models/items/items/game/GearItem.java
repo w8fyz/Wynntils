@@ -40,7 +40,7 @@ public class GearItem extends GameItem
                 IdentifiableItemProperty<GearInfo, GearInstance>,
                 SetItemProperty,
                 RequirementItemProperty {
-    private final GearInfo gearInfo;
+    private GearInfo gearInfo;
     private final GearInstance gearInstance;
 
     public GearItem(GearInfo gearInfo, GearInstance gearInstance) {
@@ -51,6 +51,11 @@ public class GearItem extends GameItem
     @Override
     public GearInfo getItemInfo() {
         return gearInfo;
+    }
+
+    @Override
+    public void setItemInfo(GearInfo itemInfo) {
+        this.gearInfo = gearInfo;
     }
 
     @Override

@@ -62,7 +62,6 @@ public final class ItemTransformerRegistry {
 
     public ErrorOr<EncodedByteBuffer> encodeItem(WynnItem wynnItem, EncodingSettings encodingSettings) {
         ItemTransformer<WynnItem> transformer = getTransformer(wynnItem);
-        System.out.println("Encoding item : "+wynnItem.getData().get(WynnItemData.TOOLTIP_KEY).toString());
         if (transformer == null) {
             return ErrorOr.error(
                     "No item transformer found for " + wynnItem.getClass().getSimpleName());

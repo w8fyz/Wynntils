@@ -21,7 +21,7 @@ import java.util.Optional;
 
 public class TomeItem extends GameItem
         implements GearTierItemProperty, RerollableItemProperty, IdentifiableItemProperty<TomeInfo, TomeInstance> {
-    private final TomeInfo tomeInfo;
+    private TomeInfo tomeInfo;
     private final TomeInstance tomeInstance;
 
     public TomeItem(TomeInfo tomeInfo, TomeInstance tomeInstance) {
@@ -32,6 +32,11 @@ public class TomeItem extends GameItem
     @Override
     public TomeInfo getItemInfo() {
         return tomeInfo;
+    }
+
+    @Override
+    public void setItemInfo(TomeInfo itemInfo) {
+        this.tomeInfo = tomeInfo;
     }
 
     @Override
