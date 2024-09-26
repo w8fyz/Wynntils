@@ -110,10 +110,10 @@ public final class UrlManager extends Manager {
 
         // Log the settings
         if (urlListOverride.get() == null) {
-            WynntilsMod.info("Loading urls.json in the normal mode. Url cache is "
+            System.out.println("Loading urls.json in the normal mode. Url cache is "
                     + (ignoreCache.get() ? "ignored" : "used") + ".");
         } else {
-            WynntilsMod.info("Loading urls.json from " + urlListOverride.get() + ". Url cache is "
+            System.out.println("Loading urls.json from " + urlListOverride.get() + ". Url cache is "
                     + (ignoreCache.get() ? "ignored" : "used") + ".");
         }
     }
@@ -283,7 +283,7 @@ public final class UrlManager extends Manager {
             }
 
             if (debugLogs.get()) {
-                WynntilsMod.info("Bundled URL list version: " + currentVersion + ", URLs: " + currentUrls.size());
+                System.out.println("Bundled URL list version: " + currentVersion + ", URLs: " + currentUrls.size());
             }
 
             // Then check if we have a local cache
@@ -320,7 +320,7 @@ public final class UrlManager extends Manager {
                                 currentUrls.put(key, value.withoutMd5());
 
                                 if (debugLogs.get()) {
-                                    WynntilsMod.info("Bundled and local hashes differ for " + key + ". Removing hash. ("
+                                    System.out.println("Bundled and local hashes differ for " + key + ". Removing hash. ("
                                             + urlInfo.md5().orElse("null") + " -> null)");
                                 }
                             }
@@ -355,7 +355,7 @@ public final class UrlManager extends Manager {
                             if (debugLogs.get()
                                     && oldInfo != null
                                     && !oldInfo.md5().equals(value.md5())) {
-                                WynntilsMod.info("Remote hash differs for " + key + ". Using remote hash. ("
+                                System.out.println("Remote hash differs for " + key + ". Using remote hash. ("
                                         + oldInfo.md5() + " -> " + value.md5().orElse("null") + ")");
                             }
                         } else {
@@ -382,7 +382,7 @@ public final class UrlManager extends Manager {
 
         // Fire the event that we have finished processing the URLs
         // Move the loading back to the main thread, even if that's not strictly necessary
-        WynntilsMod.info("Merged URL list. Version: " + urlMapper.version + ", URLs: " + urlMapper.urls.size());
+        System.out.println("Merged URL list. Version: " + urlMapper.version + ", URLs: " + urlMapper.urls.size());
         WynntilsMod.postEventOnMainThread(new UrlProcessingFinishedEvent());
 
         // Also trigger a reload for all components, as they might depend on the URLs which they couldn't load before

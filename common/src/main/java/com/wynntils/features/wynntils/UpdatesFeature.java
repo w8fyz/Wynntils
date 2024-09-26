@@ -38,19 +38,19 @@ public class UpdatesFeature extends Feature {
         CompletableFuture.runAsync(() -> Services.Update.getLatestBuild()
                 .whenCompleteAsync((version, throwable) -> Managers.TickScheduler.scheduleNextTick(() -> {
                     if (version == null) {
-                        WynntilsMod.info(
+                        System.out.println(
                                 "Couldn't fetch latest version, not attempting update reminder or auto-update.");
                         return;
                     }
 
                     if (Objects.equals(version, WynntilsMod.getVersion())) {
-                        WynntilsMod.info("Mod is on latest version, not attempting update reminder or auto-update.");
+                        System.out.println("Mod is on latest version, not attempting update reminder or auto-update.");
                         return;
                     }
 
                     if (updateReminder.get()) {
                         if (WynntilsMod.isDevelopmentEnvironment()) {
-                            WynntilsMod.info("Tried to show update reminder, but we are in development environment.");
+                            System.out.println("Tried to show update reminder, but we are in development environment.");
                             return;
                         }
 
@@ -59,11 +59,11 @@ public class UpdatesFeature extends Feature {
 
                     if (autoUpdate.get()) {
                         if (WynntilsMod.isDevelopmentEnvironment()) {
-                            WynntilsMod.info("Tried to auto-update, but we are in development environment.");
+                            System.out.println("Tried to auto-update, but we are in development environment.");
                             return;
                         }
 
-                        WynntilsMod.info("Attempting to auto-update.");
+                        System.out.println("Attempting to auto-update.");
 
                         McUtils.sendMessageToClient(Component.translatable("feature.wynntils.updates.updating")
                                 .withStyle(ChatFormatting.YELLOW));

@@ -44,7 +44,7 @@ public final class NotificationManager extends Manager {
     public MessageContainer queueMessage(TextRenderTask message) {
         if (!Managers.Connection.onServer()) return null;
 
-        WynntilsMod.info("Message Queued: " + message);
+        System.out.println("Message Queued: " + message);
         MessageContainer msgContainer = new MessageContainer(message);
         StyledText messageText = message.getText();
 
@@ -86,7 +86,7 @@ public final class NotificationManager extends Manager {
         // If the message is the same, don't do anything
         if (oldMessage.equals(newMessage)) return msgContainer;
 
-        WynntilsMod.info("Message Edited: " + msgContainer.getRenderTask() + " -> " + newMessage.getString());
+        System.out.println("Message Edited: " + msgContainer.getRenderTask() + " -> " + newMessage.getString());
 
         // If we have multiple repeated messages, we want to only edit the last one.
         Component oldComponent = msgContainer.getRenderTask().getText().getComponent();
@@ -116,7 +116,7 @@ public final class NotificationManager extends Manager {
      * @param msgContainer The message container to remove
      */
     public void removeMessage(MessageContainer msgContainer) {
-        WynntilsMod.info("Message Removed: " + msgContainer.getRenderTask());
+        System.out.println("Message Removed: " + msgContainer.getRenderTask());
 
         cachedMessageSet.remove(msgContainer);
         WynntilsMod.postEvent(new NotificationEvent.Remove(msgContainer));

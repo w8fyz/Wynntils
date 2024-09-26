@@ -166,7 +166,7 @@ public class GuildModel extends Model {
             guildLevelProgress = CappedValue.EMPTY;
             objectivesCompletedProgress = CappedValue.EMPTY;
             objectiveStreak = 0;
-            WynntilsMod.info("User left guild");
+            System.out.println("User left guild");
             return;
         }
 
@@ -174,7 +174,7 @@ public class GuildModel extends Model {
         if (joinedGuildMatcher.matches()) {
             guildName = joinedGuildMatcher.group(1);
             guildRank = GuildRank.RECRUIT;
-            WynntilsMod.info("User joined guild " + guildName + " as a " + guildRank);
+            System.out.println("User joined guild " + guildName + " as a " + guildRank);
             WynntilsMod.postEvent(new GuildEvent.Joined(guildName));
             return;
         }
@@ -183,7 +183,7 @@ public class GuildModel extends Model {
         if (rankChangedMatcher.matches()) {
             if (!rankChangedMatcher.group(1).equals(McUtils.playerName())) return;
             guildRank = GuildRank.valueOf(rankChangedMatcher.group(2).toUpperCase(Locale.ROOT));
-            WynntilsMod.info("User's guild rank changed to " + guildRank);
+            System.out.println("User's guild rank changed to " + guildRank);
             return;
         }
 
@@ -287,7 +287,7 @@ public class GuildModel extends Model {
             }
         }
 
-        WynntilsMod.info("Successfully parsed guild name and rank, " + guildRank + " of " + guildName);
+        System.out.println("Successfully parsed guild name and rank, " + guildRank + " of " + guildName);
     }
 
     public void addGuildContainerQuerySteps(QueryBuilder builder) {
@@ -353,7 +353,7 @@ public class GuildModel extends Model {
             }
         }
 
-        WynntilsMod.info("Successfully parsed guild info for guild " + guildName);
+        System.out.println("Successfully parsed guild info for guild " + guildName);
     }
 
     private void parseDiplomacyContent(List<ItemStack> items) {
@@ -390,7 +390,7 @@ public class GuildModel extends Model {
             }
         }
 
-        WynntilsMod.info("Successfully parsed tributes for guild " + guildName);
+        System.out.println("Successfully parsed tributes for guild " + guildName);
     }
 
     public String getGuildName() {

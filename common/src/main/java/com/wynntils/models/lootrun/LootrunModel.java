@@ -638,7 +638,7 @@ public class LootrunModel extends Model {
         if (oldState == LootrunningState.CHOOSING_BEACON
                 && newState == LootrunningState.IN_TASK
                 && closestBeacon != null) {
-            WynntilsMod.info("Selected a " + closestBeacon.color() + " beacon at " + closestBeacon.position());
+            System.out.println("Selected a " + closestBeacon.color() + " beacon at " + closestBeacon.position());
             selectedBeacons.put(closestBeacon.color(), selectedBeacons.getOrDefault(closestBeacon.color(), 0) + 1);
             selectedBeaconsStorage.touched();
             setLastTaskBeaconColor(closestBeacon.color());

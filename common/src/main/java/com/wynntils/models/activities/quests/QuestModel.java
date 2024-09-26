@@ -41,7 +41,7 @@ public final class QuestModel extends Model {
     }
 
     public void rescanQuestBook(boolean includeQuests, boolean includeMiniQuests) {
-        WynntilsMod.info("Requesting rescan of Quests in Content Book");
+        System.out.println("Requesting rescan of Quests in Content Book");
         if (includeQuests) {
             Models.Activity.scanContentBook(ActivityType.QUEST, this::updateQuestsFromQuery);
         }
@@ -170,7 +170,7 @@ public final class QuestModel extends Model {
                 Models.Character.getId(),
                 new QuestStorage(Collections.unmodifiableList(newQuests), getMiniQuestsRaw()));
         WynntilsMod.postEvent(new ActivityUpdatedEvent(ActivityType.QUEST));
-        WynntilsMod.info("Updated quests from query, got " + newQuests.size() + " quests.");
+        System.out.println("Updated quests from query, got " + newQuests.size() + " quests.");
     }
 
     private void updateMiniQuestsFromQuery(List<ActivityInfo> newActivities, List<StyledText> progress) {
@@ -189,7 +189,7 @@ public final class QuestModel extends Model {
                 Models.Character.getId(),
                 new QuestStorage(getQuestsRaw(), Collections.unmodifiableList(newMiniQuests)));
         WynntilsMod.postEvent(new ActivityUpdatedEvent(ActivityType.MINI_QUEST));
-        WynntilsMod.info("Updated mini-quests from query, got " + newMiniQuests.size() + " mini-quests.");
+        System.out.println("Updated mini-quests from query, got " + newMiniQuests.size() + " mini-quests.");
     }
 
     private static QuestInfo getQuestInfoFromActivity(ActivityInfo activity) {

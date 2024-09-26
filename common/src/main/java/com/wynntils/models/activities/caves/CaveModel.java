@@ -31,7 +31,7 @@ public class CaveModel extends Model {
     }
 
     public void reloadCaves() {
-        WynntilsMod.info("Requesting rescan of caves in Activity Book");
+        System.out.println("Requesting rescan of caves in Activity Book");
         Models.Activity.scanContentBook(ActivityType.CAVE, this::updateCavesFromQuery);
     }
 
@@ -50,7 +50,7 @@ public class CaveModel extends Model {
                 Models.Character.getId(),
                 new CaveStorage(Collections.unmodifiableList(newCaves), Collections.unmodifiableList(progress)));
         WynntilsMod.postEvent(new ActivityUpdatedEvent(ActivityType.CAVE));
-        WynntilsMod.info("Updated caves from query, got " + newCaves.size() + " caves.");
+        System.out.println("Updated caves from query, got " + newCaves.size() + " caves.");
     }
 
     public Optional<CaveInfo> getCaveInfoFromName(String name) {

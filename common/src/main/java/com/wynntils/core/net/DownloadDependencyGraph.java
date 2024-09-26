@@ -248,7 +248,7 @@ public final class DownloadDependencyGraph {
     // region Debug
 
     void logGraph() {
-        WynntilsMod.info("[DownloadManager] Download Dependency Graph:");
+        System.out.println("[DownloadManager] Download Dependency Graph:");
 
         // First, collect all UrlIds by their caller components
         Map<CoreComponent, List<UrlId>> urlIdsByComponent = nodeMap.keySet().stream()
@@ -259,7 +259,7 @@ public final class DownloadDependencyGraph {
 
         // Then, log the graph, printing the caller component and its downloaded UrlIds, and their dependencies
         urlIdsByComponent.forEach((component, urlIds) -> {
-            WynntilsMod.info("| -- " + StringUtils.capitalize(component.getJsonName()));
+            System.out.println("| -- " + StringUtils.capitalize(component.getJsonName()));
             urlIds.forEach(urlId -> {
                 Node node = nodeMap.keySet().stream()
                         .filter(n -> n.download.callerComponent() == component && n.download.urlId() == urlId)
@@ -267,9 +267,9 @@ public final class DownloadDependencyGraph {
                         .orElseThrow();
 
                 if (node.dependencies.isEmpty()) {
-                    WynntilsMod.info("|    - " + urlId);
+                    System.out.println("|    - " + urlId);
                 } else {
-                    WynntilsMod.info("|    - " + urlId + " <- "
+                    System.out.println("|    - " + urlId + " <- "
                             + node.dependencies.stream()
                                     .map(dependency -> dependency.download.urlId())
                                     .toList());

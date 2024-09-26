@@ -151,9 +151,9 @@ public class DownloadManager extends Manager {
             }
 
             if (debugLogs.get()) {
-                WynntilsMod.info("[DownloadManager] Started downloads:");
+                System.out.println("[DownloadManager] Started downloads:");
                 currentDownloads.forEach(queuedDownload -> {
-                    WynntilsMod.info("  - %s -> %s"
+                    System.out.println("  - %s -> %s"
                             .formatted(
                                     StringUtils.capitalizeFirst(
                                             queuedDownload.callerComponent().getJsonName()),
@@ -198,7 +198,7 @@ public class DownloadManager extends Manager {
                 if (!queuedDownload.equals(finishedDownload)) continue;
 
                 if (debugLogs.get()) {
-                    WynntilsMod.info(queuedDownload + " -> " + nextDownload);
+                    System.out.println(queuedDownload + " -> " + nextDownload);
                 }
 
                 // Remove the finished download from the current downloads
@@ -228,7 +228,7 @@ public class DownloadManager extends Manager {
 
             // Log the progress if the system property is set
             if (debugLogs.get()) {
-                WynntilsMod.info("Download finished: "
+                System.out.println("Download finished: "
                         + StringUtils.capitalizeFirst(download.callerComponent().getJsonName()) + " -> "
                         + download.urlId());
             }
@@ -262,22 +262,22 @@ public class DownloadManager extends Manager {
 
         // All downloads are finished, and there are no more downloads to start
         // Display statistics from the graph
-        WynntilsMod.info("[DownloadManager] Downloads finished.");
+        System.out.println("[DownloadManager] Downloads finished.");
 
         if (graph.hasError()) {
             WynntilsMod.postEventOnMainThread(new DownloadEvent.Failed());
             WynntilsMod.warn("[DownloadManager] Some downloads failed. See the statistics for more information.");
         } else {
             WynntilsMod.postEventOnMainThread(new DownloadEvent.Completed());
-            WynntilsMod.info("[DownloadManager] Downloads succeeded.");
+            System.out.println("[DownloadManager] Downloads succeeded.");
         }
 
         if (graph.hasError() || debugLogs.get()) {
-            WynntilsMod.info("[DownloadManager] Download statistics:");
-            WynntilsMod.info("  - Total downloads: %d".formatted(graph.totalDownloads()));
-            WynntilsMod.info("  - Successful downloads: %d".formatted(graph.successfulDownloads()));
-            WynntilsMod.info("  - Failed downloads: %d".formatted(graph.failedDownloads()));
-            WynntilsMod.info("  - Error Rate: %.0f%%".formatted(graph.errorRate() * 100f));
+            System.out.println("[DownloadManager] Download statistics:");
+            System.out.println("  - Total downloads: %d".formatted(graph.totalDownloads()));
+            System.out.println("  - Successful downloads: %d".formatted(graph.successfulDownloads()));
+            System.out.println("  - Failed downloads: %d".formatted(graph.failedDownloads()));
+            System.out.println("  - Error Rate: %.0f%%".formatted(graph.errorRate() * 100f));
         }
     }
 }

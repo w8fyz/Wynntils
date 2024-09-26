@@ -23,7 +23,7 @@ public class DailyObjectiveScoreboardPart extends AbstractObjectivesScoreboardPa
     @Override
     public void onSegmentChange(ScoreboardSegment newValue) {
         if (isSegmentAllDone(newValue)) {
-            WynntilsMod.info("Daily objectives were all done.");
+            System.out.println("Daily objectives were all done.");
             removeAllOfType();
             return;
         }
@@ -37,7 +37,7 @@ public class DailyObjectiveScoreboardPart extends AbstractObjectivesScoreboardPa
         }
 
         if (Models.Objectives.getPersonalObjectives().isEmpty()) {
-            WynntilsMod.info("Adding " + objectives.size() + " daily objectives.");
+            System.out.println("Adding " + objectives.size() + " daily objectives.");
         }
 
         for (WynnObjective objective : objectives) {

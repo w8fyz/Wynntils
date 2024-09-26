@@ -226,7 +226,7 @@ public final class ConfigManager extends Manager {
             configJson.add(config.getJsonName(), configElement);
         }
 
-        WynntilsMod.info("Creating default config file with " + configJson.size() + " config values.");
+        System.out.println("Creating default config file with " + configJson.size() + " config values.");
         Managers.Json.savePreciousJson(DEFAULT_CONFIG, configJson);
     }
 

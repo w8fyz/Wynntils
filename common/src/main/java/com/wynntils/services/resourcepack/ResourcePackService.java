@@ -46,22 +46,22 @@ public final class ResourcePackService extends Service {
         if (preloadedPack == null) {
             // Let Minecraft download and handle the resource pack,
             // and we can preload it next disconnect
-            WynntilsMod.info("No preloaded pack, letting Minecraft handle the resource pack.");
+            System.out.println("No preloaded pack, letting Minecraft handle the resource pack.");
             serverHasResourcePack = true;
             return;
         }
 
         // 2. If we already have the correct resource pack preloaded, cancel the event
         if (preloadedPack.getId().equals(PRELOADED_PACK_PREFIX + event.getHash())) {
-            WynntilsMod.info("Preloaded pack is up-to-date, cancelling server pack loading.");
+            System.out.println("Preloaded pack is up-to-date, cancelling server pack loading.");
             event.setCanceled(true);
             serverHasResourcePack = false;
             return;
         }
 
         // 3. Otherwise, we have an old/wrong resource pack preloaded, clear it
-        WynntilsMod.info("Preloaded pack is outdated or wrong, clearing server pack.");
-        WynntilsMod.info("Preloaded pack: " + preloadedPack.getId() + ", expected: " + getExpectedPackId());
+        System.out.println("Preloaded pack is outdated or wrong, clearing server pack.");
+        System.out.println("Preloaded pack: " + preloadedPack.getId() + ", expected: " + getExpectedPackId());
 
         PackRepository resourcePackRepository = McUtils.mc().getResourcePackRepository();
         List<String> selectedIds = new ArrayList<>(resourcePackRepository.getSelectedIds());
@@ -82,14 +82,14 @@ public final class ResourcePackService extends Service {
         Pack preloadedPack = getPreloadedPack();
 
         if (isResourcePackInfoMissing()) {
-            WynntilsMod.info(
+            System.out.println(
                     "No preloaded pack, or it was disabled, clearing server pack, checking if a reload should trigger.");
         } else if (preloadedPack == null) {
-            WynntilsMod.info("No preloaded pack, clearing server pack, trying to preload a new pack.");
+            System.out.println("No preloaded pack, clearing server pack, trying to preload a new pack.");
         } else if (!preloadedPack.getId().equals(getExpectedPackId())) {
-            WynntilsMod.info("Preloaded pack is outdated, clearing server pack, trying to preload a new pack.");
+            System.out.println("Preloaded pack is outdated, clearing server pack, trying to preload a new pack.");
         } else {
-            WynntilsMod.info("Preloaded pack is up-to-date, no-op.");
+            System.out.println("Preloaded pack is up-to-date, no-op.");
             return;
         }
 
@@ -99,17 +99,17 @@ public final class ResourcePackService extends Service {
         boolean changeMade = preloadResourcePack();
 
         if (!changeMade) {
-            WynntilsMod.info("No changes to preloaded packs, clearing server pack, no reload needed.");
+            System.out.println("No changes to preloaded packs, clearing server pack, no reload needed.");
             return;
         }
 
         if (serverHasResourcePack) {
-            WynntilsMod.info("Preloaded pack updated, reloading resource packs is done by Minecraft.");
+            System.out.println("Preloaded pack updated, reloading resource packs is done by Minecraft.");
             return;
         }
 
         // We reload the resource pack repository, to preload the new pack
-        WynntilsMod.info(
+        System.out.println(
                 "Triggering a resource pack reload, as the server had no resource packs, and a change was made.");
         McUtils.mc().reloadResourcePacks();
     }
@@ -123,7 +123,7 @@ public final class ResourcePackService extends Service {
         if (Managers.Connection.onServer()) return;
 
         // We are not on a Wynncraft server, clear the preloaded pack
-        WynntilsMod.info("Joined a non-Wynncraft server, clearing preloaded pack.");
+        System.out.println("Joined a non-Wynncraft server, clearing preloaded pack.");
 
         PackRepository resourcePackRepository = McUtils.mc().getResourcePackRepository();
         List<String> selectedIds = new ArrayList<>(resourcePackRepository.getSelectedIds());
@@ -133,7 +133,7 @@ public final class ResourcePackService extends Service {
         if (anyRemoved) {
             // If the server had resource packs, we trigger the reload twice,
             // but it's a compromise we have to make (applies to non-Wynncraft servers)
-            WynntilsMod.info("Preloaded pack removed, reloading resource packs.");
+            System.out.println("Preloaded pack removed, reloading resource packs.");
             McUtils.mc().reloadResourcePacks();
         }
     }

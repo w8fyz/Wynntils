@@ -90,7 +90,7 @@ public class UpfixerManager extends Manager {
                 if (upfixer.apply(persistedObject, persistedValues)) {
                     anyChange = true;
                     addUpfixerToPersistedFile(persistedObject, upfixer);
-                    WynntilsMod.info("Applied upfixer \"" + upfixer.getUpfixerName() + "\" to "
+                    System.out.println("Applied upfixer \"" + upfixer.getUpfixerName() + "\" to "
                             + upfixerType.name().toLowerCase(Locale.ROOT) + " file.");
                 }
             } catch (Throwable t) {

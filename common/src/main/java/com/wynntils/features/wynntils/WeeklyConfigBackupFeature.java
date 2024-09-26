@@ -50,7 +50,7 @@ public class WeeklyConfigBackupFeature extends Feature {
                 return;
             }
 
-            WynntilsMod.info("Created backup of user config file: " + configBackupFile.getName());
+            System.out.println("Created backup of user config file: " + configBackupFile.getName());
 
             File userStorageFile = Managers.Storage.getUserStorageFile();
 
@@ -69,7 +69,7 @@ public class WeeklyConfigBackupFeature extends Feature {
                 return;
             }
 
-            WynntilsMod.info("Created backup of user storage file: " + storageBackupFile.getName());
+            System.out.println("Created backup of user storage file: " + storageBackupFile.getName());
 
             // Save the time of the backup after we've finished saving the backup
             lastBackup.store(currentTime);

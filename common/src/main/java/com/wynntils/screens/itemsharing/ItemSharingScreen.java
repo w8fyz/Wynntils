@@ -136,8 +136,15 @@ public final class ItemSharingScreen extends WynntilsScreen {
         // Encode the item with the selected settings
         EncodingSettings encodingSettings = new EncodingSettings(
                 Models.ItemEncoding.extendedIdentificationEncoding.get(), Models.ItemEncoding.shareItemName.get());
+        /*ErrorOr<EncodedByteBuffer> errorOrEncodedByteBuffer =
+                Models.ItemEncoding.encodeItem(wynnItem, encodingSettings);*/
+
+        ItemStack itemstackEdited = new FakeItemStack(wynnItem, "From dev");
+        WynnItem wynnItemEdited = new WynnItem();
+        wynnItemEdited.onUpdate(itemstackEdited);
+
         ErrorOr<EncodedByteBuffer> errorOrEncodedByteBuffer =
-                Models.ItemEncoding.encodeItem(wynnItem, encodingSettings);
+                Models.ItemEncoding.encodeItem(wynnItemEdited, encodingSettings);
         if (errorOrEncodedByteBuffer.hasError()) {
             WynntilsMod.error("Failed to encode item: " + errorOrEncodedByteBuffer.getError());
             previewItemStack = null;
@@ -201,7 +208,6 @@ public final class ItemSharingScreen extends WynntilsScreen {
                 if (wynnItem instanceof GearItem gearItem) {
                     itemStackToSave = new FakeItemStack(gearItem, "From " + McUtils.playerName() + "'s Item Record");
                 }
-
                 // Item name is passed in since it is lost in the instanceof check above and looks nicer
                 // saying "Saved Gale's Force to your item record" than "Saved Bow to your item record"
                 savedItem = Services.ItemRecord.saveItem(wynnItem, itemStackToSave, itemStack.getHoverName());

@@ -191,12 +191,12 @@ public final class CharacterModel extends Model {
             if (!parseCharacter(e.getItemStack())) return;
             hasCharacter = true;
             WynntilsMod.postEvent(new CharacterUpdateEvent());
-            WynntilsMod.info("Selected character " + getCharacterString());
+            System.out.println("Selected character " + getCharacterString());
         }
     }
 
     public void scanCharacterInfo(boolean forceParseEverything) {
-        WynntilsMod.info("Scheduling character info query");
+        System.out.println("Scheduling character info query");
         QueryBuilder queryBuilder = ScriptedContainerQuery.builder("Character Info Query");
         queryBuilder.onError(msg -> WynntilsMod.warn("Error querying Character Info: " + msg));
 
@@ -217,7 +217,7 @@ public final class CharacterModel extends Model {
                     .then(QueryStep.clickOnSlot(COSMETICS_BACK_SLOT)
                             .expectContainerTitle(ContainerModel.CHARACTER_INFO_NAME));
         } else {
-            WynntilsMod.info("Skipping silverbull subscription query ("
+            System.out.println("Skipping silverbull subscription query ("
                     + (silverbullExpiresAt.get() - System.currentTimeMillis()) + " ms left)");
         }
 
@@ -238,7 +238,7 @@ public final class CharacterModel extends Model {
         parseCharacterFromCharacterMenu(characterInfoItem);
         hasCharacter = true;
         WynntilsMod.postEvent(new CharacterUpdateEvent());
-        WynntilsMod.info("Deducing character " + getCharacterString());
+        System.out.println("Deducing character " + getCharacterString());
     }
 
     private void parseCratesBombsCosmeticsContainer(ContainerContent container) {
@@ -279,7 +279,7 @@ public final class CharacterModel extends Model {
                 + TimeUnit.SECONDS.toMillis(seconds);
         silverbullExpiresAt.store(expiryTime);
 
-        WynntilsMod.info(
+        System.out.println(
                 "Parsed Silverbull subscription status: " + silverbullSubscriber.get() + ", expires at: " + expiryTime);
     }
 
@@ -294,7 +294,7 @@ public final class CharacterModel extends Model {
         }
 
         id = idLine.getString();
-        WynntilsMod.info("Selected character: " + id);
+        System.out.println("Selected character: " + id);
     }
 
     private String getCharacterString() {

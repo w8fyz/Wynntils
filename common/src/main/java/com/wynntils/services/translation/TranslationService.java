@@ -86,7 +86,7 @@ public final class TranslationService extends Service {
     private void addShutdownHook() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             CachingTranslationProvider.saveTranslationCache();
-            WynntilsMod.info("Successfully saved translation cache!");
+            System.out.println("Successfully saved translation cache!");
         }));
     }
 

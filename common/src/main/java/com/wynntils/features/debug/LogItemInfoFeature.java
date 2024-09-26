@@ -52,14 +52,14 @@ public class LogItemInfoFeature extends Feature {
     private void logItem(ItemStack itemStack) {
         String description = getDescription(itemStack);
 
-        WynntilsMod.info(description);
+        System.out.println(description);
         McUtils.sendMessageToClient(Component.literal(description).withStyle(ChatFormatting.AQUA));
     }
 
     private int showCommand(CommandContext<CommandSourceStack> context) {
         String description = getDescription(McUtils.player().getItemBySlot(EquipmentSlot.MAINHAND));
 
-        WynntilsMod.info(description);
+        System.out.println(description);
         context.getSource().sendSuccess(() -> Component.literal(description).withStyle(ChatFormatting.AQUA), false);
         return 1;
     }

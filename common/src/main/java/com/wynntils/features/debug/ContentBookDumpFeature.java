@@ -102,7 +102,7 @@ public class ContentBookDumpFeature extends Feature {
                     currentlyTracking.rewards(),
                     currentTracker));
 
-            WynntilsMod.info("Got location for " + currentlyTracking.name() + ": " + currentTracker);
+            System.out.println("Got location for " + currentlyTracking.name() + ": " + currentTracker);
 
             trackManually();
         } else {
@@ -162,7 +162,7 @@ public class ContentBookDumpFeature extends Feature {
         currentlyTracking = info;
         lastTrackedLocation =
                 Models.Activity.ACTIVITY_MARKER_PROVIDER.getSpawnLocation().orElse(null);
-        WynntilsMod.info("Tracking " + info.name());
+        System.out.println("Tracking " + info.name());
         Models.Activity.startTracking(info.name(), info.type());
     }
 

@@ -62,7 +62,7 @@ public class HadesClientHandler implements IHadesClientAdapter {
             McUtils.sendErrorToClient("Disconnected from the remote player server.");
         }
 
-        WynntilsMod.info("Disconnected from the remote player server.");
+        System.out.println("Disconnected from the remote player server.");
 
         userRegistry.getHadesUserMap().clear();
     }
@@ -73,7 +73,7 @@ public class HadesClientHandler implements IHadesClientAdapter {
 
         switch (packet.getResponse()) {
             case SUCCESS -> {
-                WynntilsMod.info("Successfully connected to the remote player server: " + packet.getMessage());
+                System.out.println("Successfully connected to the remote player server: " + packet.getMessage());
                 userComponent = Component.literal("Successfully connected to the remote player server.")
                         .withStyle(ChatFormatting.GREEN);
 
@@ -131,7 +131,7 @@ public class HadesClientHandler implements IHadesClientAdapter {
 
     @Override
     public void handleDisconnect(HSPacketDisconnect packet) {
-        WynntilsMod.info("Disconnected from the remote player server. Reason: " + packet.getReason());
+        System.out.println("Disconnected from the remote player server. Reason: " + packet.getReason());
 
         if (Managers.Connection.onServer()) {
             McUtils.sendMessageToClient(Component.literal("[Wynntils] Disconnected from the remote player server.")

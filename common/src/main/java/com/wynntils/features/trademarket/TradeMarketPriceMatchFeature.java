@@ -74,7 +74,7 @@ public class TradeMarketPriceMatchFeature extends Feature {
         if (!sendPriceMessage) return;
         if (!e.getStyledText().equals(TYPE_SELL_PRICE)) return;
 
-        WynntilsMod.info("Trying to set trade market price to " + priceToSend);
+        System.out.println("Trying to set trade market price to " + priceToSend);
 
         McUtils.sendChat(String.valueOf(priceToSend));
 

@@ -103,7 +103,6 @@ public class ChatItemFeature extends Feature {
         while (matcher.find()) {
             EncodedByteBuffer encodedByteBuffer = EncodedByteBuffer.fromUtf16String(matcher.group());
             ErrorOr<WynnItem> errorOrDecodedItem = Models.ItemEncoding.decodeItem(encodedByteBuffer);
-
             String name;
             if (errorOrDecodedItem.hasError()) {
                 name = "encoding_error";
@@ -116,13 +115,19 @@ public class ChatItemFeature extends Feature {
                     name = namedItemProperty.getName();
                 }
             }
-
+            System.out.println("DETECTED : "+name);
             while (chatItems.containsKey(name)) { // avoid overwriting entries
                 name += "_";
             }
 
             chatInput.setValue(chatInput.getValue().replace(matcher.group(), "<" + name + ">"));
             chatItems.put(name, matcher.group());
+            System.out.println("GROUP : "+matcher.group());
+
+            System.out.println("===HOW IS DOING THE ARRAY");
+            for(Map.Entry<String, String> entry : chatItems.entrySet()){
+                System.out.println("KEY : "+entry.getKey()+" VALUE : "+entry.getValue());
+            }
         }
     }
 
@@ -289,11 +294,9 @@ public class ChatItemFeature extends Feature {
             return;
         }
 
-        if (WynntilsMod.isDevelopmentEnvironment()) {
-            WynntilsMod.info("Encoded item: " + errorOrEncodedByteBuffer.getValue());
-            WynntilsMod.info("Encoded item UTF-16: "
+            WynntilsMod.warn("Encoded item: " + errorOrEncodedByteBuffer.getValue());
+            WynntilsMod.warn("Encoded item UTF-16: "
                     + errorOrEncodedByteBuffer.getValue().toUtf16String());
-        }
 
         McUtils.sendMessageToClient(Component.translatable("feature.wynntils.chatItem.chatItemMessage")
                 .withStyle(ChatFormatting.DARK_GREEN)

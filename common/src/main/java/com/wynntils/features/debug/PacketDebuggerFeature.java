@@ -122,7 +122,7 @@ public class PacketDebuggerFeature extends Feature {
         Packet<?> packet = e.getPacket();
         if (packetFilterType.get().isPacketExcluded(packet.getClass())) return;
 
-        WynntilsMod.info("SENT packet: " + describePacket(packet));
+        System.out.println("SENT packet: " + describePacket(packet));
     }
 
     @SubscribeEvent
@@ -130,7 +130,7 @@ public class PacketDebuggerFeature extends Feature {
         Packet<?> packet = e.getPacket();
         if (packetFilterType.get().isPacketExcluded(packet.getClass())) return;
 
-        WynntilsMod.info("RECV packet: " + describePacket(packet));
+        System.out.println("RECV packet: " + describePacket(packet));
     }
 
     private enum PacketFilterType {

@@ -165,7 +165,7 @@ public final class FriendsModel extends Model {
                 int server = Integer.parseInt(onlineFriendMatcher.group(2));
 
                 onlineFriends.put(username, server);
-                WynntilsMod.info("Friend " + username + " is online on WC" + server);
+                System.out.println("Friend " + username + " is online on WC" + server);
                 event.setCanceled(true);
                 return;
             } else {
@@ -177,7 +177,7 @@ public final class FriendsModel extends Model {
 
     private boolean tryParseNoFriendList(StyledText styledText) {
         if (styledText.getMatcher(FRIEND_LIST_FAIL_2).matches()) {
-            WynntilsMod.info("Friend list is empty.");
+            System.out.println("Friend list is empty.");
             return true;
         }
 
@@ -189,7 +189,7 @@ public final class FriendsModel extends Model {
         if (matcher.matches()) {
             String player = matcher.group(1);
 
-            WynntilsMod.info("Player has removed friend: " + player);
+            System.out.println("Player has removed friend: " + player);
 
             friends.remove(player);
             WynntilsMod.postEvent(new HadesRelationsUpdateEvent.FriendList(
@@ -202,7 +202,7 @@ public final class FriendsModel extends Model {
         if (matcher.matches()) {
             String player = matcher.group(1);
 
-            WynntilsMod.info("Player has added friend: " + player);
+            System.out.println("Player has added friend: " + player);
 
             friends.add(player);
             WynntilsMod.postEvent(
@@ -228,7 +228,7 @@ public final class FriendsModel extends Model {
                 new HadesRelationsUpdateEvent.FriendList(friends, HadesRelationsUpdateEvent.ChangeType.RELOAD));
         WynntilsMod.postEvent(new FriendsEvent.Listed());
 
-        WynntilsMod.info("Successfully updated friend list, user has " + friendList.length + " friends.");
+        System.out.println("Successfully updated friend list, user has " + friendList.length + " friends.");
         return true;
     }
 
@@ -253,7 +253,7 @@ public final class FriendsModel extends Model {
             lastFriendRequest = System.currentTimeMillis();
             Handlers.Command.queueCommand("friend list");
         } else {
-            WynntilsMod.info("Skipping friend list request because it was requested very recently.");
+            System.out.println("Skipping friend list request because it was requested very recently.");
         }
 
         if (System.currentTimeMillis() - lastOnlineRequest > REQUEST_RATELIMIT) {
@@ -261,7 +261,7 @@ public final class FriendsModel extends Model {
             lastOnlineRequest = System.currentTimeMillis();
             Handlers.Command.queueCommand("friend online");
         } else {
-            WynntilsMod.info("Skipping online friend list request because it was requested very recently.");
+            System.out.println("Skipping online friend list request because it was requested very recently.");
         }
     }
 

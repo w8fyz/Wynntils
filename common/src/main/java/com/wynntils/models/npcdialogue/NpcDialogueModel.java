@@ -84,9 +84,9 @@ public class NpcDialogueModel extends Model {
 
     public void handleDialogue(List<StyledText> chatMessage, boolean protectedDialogue, NpcDialogueType type) {
         // Print dialogue to the system log
-        WynntilsMod.info("[NPC] Type: " + (chatMessage.isEmpty() ? "<empty> " : "")
+        System.out.println("[NPC] Type: " + (chatMessage.isEmpty() ? "<empty> " : "")
                 + (protectedDialogue ? "<protected> " : "") + type);
-        chatMessage.forEach(s -> WynntilsMod.info("[NPC] " + (s.isEmpty() ? "<empty>" : s)));
+        chatMessage.forEach(s -> System.out.println("[NPC] " + (s.isEmpty() ? "<empty>" : s)));
 
         // The same message can be repeating before we have finished removing the old
         // Just remove the old and add the new with an updated remove time
@@ -150,7 +150,7 @@ public class NpcDialogueModel extends Model {
                 return;
             }
 
-            styledTexts.forEach(styledText -> WynntilsMod.info("[Translated NPC] " + styledText.getString()));
+            styledTexts.forEach(styledText -> System.out.println("[Translated NPC] " + styledText.getString()));
 
             // Update the dialogue with the new one
             NpcDialogue newDialogue = new NpcDialogue(

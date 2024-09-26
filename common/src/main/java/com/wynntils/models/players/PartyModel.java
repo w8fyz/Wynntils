@@ -160,7 +160,7 @@ public final class PartyModel extends Model {
 
     private boolean tryParsePartyMessages(StyledText styledText) {
         if (styledText.matches(PARTY_CREATE_SELF)) {
-            WynntilsMod.info("Player created a new party.");
+            System.out.println("Player created a new party.");
 
             inParty = true;
             partyLeader = McUtils.playerName();
@@ -176,14 +176,14 @@ public final class PartyModel extends Model {
                 || styledText.matches(PARTY_LEAVE_KICK)
                 || styledText.matches(PARTY_LEAVE_SELF_ALREADYLEFT)
                 || styledText.matches(PARTY_DISBAND_SELF)) {
-            WynntilsMod.info("Player left the party.");
+            System.out.println("Player left the party.");
 
             resetData(); // (!) resetData() already posts events for both HadesRelationsUpdateEvent and PartyEvent
             return true;
         }
 
         if (styledText.matches(PARTY_JOIN_SELF)) {
-            WynntilsMod.info("Player joined a party.");
+            System.out.println("Player joined a party.");
             requestData();
             return true;
         }
@@ -192,7 +192,7 @@ public final class PartyModel extends Model {
         if (matcher.matches()) {
             String player = matcher.group(1);
 
-            WynntilsMod.info("Player's party has a new member: " + player);
+            System.out.println("Player's party has a new member: " + player);
 
             partyMembers.add(player);
             WynntilsMod.postEvent(
@@ -205,7 +205,7 @@ public final class PartyModel extends Model {
         if (matcher.matches()) {
             String player = matcher.group(1);
 
-            WynntilsMod.info("Player's party has a new member #2: " + player);
+            System.out.println("Player's party has a new member #2: " + player);
 
             partyMembers.add(player);
             WynntilsMod.postEvent(
@@ -218,7 +218,7 @@ public final class PartyModel extends Model {
         if (matcher.matches()) {
             String player = matcher.group(1);
 
-            WynntilsMod.info("Other player left player's party: " + player);
+            System.out.println("Other player left player's party: " + player);
 
             partyMembers.remove(player);
             WynntilsMod.postEvent(new HadesRelationsUpdateEvent.PartyList(
@@ -231,7 +231,7 @@ public final class PartyModel extends Model {
         if (matcher.matches()) {
             String player = matcher.group(1);
 
-            WynntilsMod.info("Player's party has a new leader: " + player);
+            System.out.println("Player's party has a new leader: " + player);
 
             partyLeader = player;
             return true;
@@ -239,7 +239,7 @@ public final class PartyModel extends Model {
 
         matcher = styledText.getMatcher(PARTY_PROMOTE_SELF);
         if (matcher.matches()) {
-            WynntilsMod.info("Player has been promoted to party leader.");
+            System.out.println("Player has been promoted to party leader.");
 
             partyLeader = McUtils.playerName();
             return true;
@@ -248,7 +248,7 @@ public final class PartyModel extends Model {
         matcher = styledText.getMatcher(PARTY_INVITED);
         if (matcher.matches()) {
             String inviter = matcher.group(1);
-            WynntilsMod.info("Player has been invited to party by " + inviter);
+            System.out.println("Player has been invited to party by " + inviter);
 
             WynntilsMod.postEvent(new PartyEvent.Invited(inviter));
             return true;
@@ -256,7 +256,7 @@ public final class PartyModel extends Model {
 
         matcher = styledText.getMatcher(PARTY_KICK_OTHER);
         if (matcher.matches()) {
-            WynntilsMod.info("Other player was kicked from player's party");
+            System.out.println("Other player was kicked from player's party");
 
             /*
             (!) This message/matcher is ONLY triggered when the player sends "/party kick". Since that message
@@ -287,7 +287,7 @@ public final class PartyModel extends Model {
     private boolean tryParseNoPartyMessage(StyledText styledText) {
         if (styledText.matches(PARTY_LIST_SELF_FAILED)) {
             resetData();
-            WynntilsMod.info("Player is not in a party.");
+            System.out.println("Player is not in a party.");
             return true;
         }
 
@@ -323,13 +323,13 @@ public final class PartyModel extends Model {
         WynntilsMod.postEvent(new HadesRelationsUpdateEvent.PartyList(
                 Set.copyOf(partyMembers), HadesRelationsUpdateEvent.ChangeType.RELOAD));
         WynntilsMod.postEvent(new PartyEvent.Listed());
-        WynntilsMod.info("Successfully updated party list, user has " + partyList.length + " party members.");
+        System.out.println("Successfully updated party list, user has " + partyList.length + " party members.");
 
         Collection<String> teamNames = McUtils.mc().level.getScoreboard().getTeamNames();
         offlineMembers = partyMembers.stream()
                 .filter(member -> !teamNames.contains(member))
                 .collect(Collectors.toSet());
-        WynntilsMod.info("Successfully updated offline members, user's party has " + offlineMembers.size()
+        System.out.println("Successfully updated offline members, user's party has " + offlineMembers.size()
                 + " offline members.");
 
         return true;
@@ -373,7 +373,7 @@ public final class PartyModel extends Model {
         if (McUtils.player() == null) return;
 
         if (System.currentTimeMillis() - lastPartyRequest < 250) {
-            WynntilsMod.info("Skipping party list request because it was requested less than 250ms ago.");
+            System.out.println("Skipping party list request because it was requested less than 250ms ago.");
             return;
         }
 

@@ -76,7 +76,7 @@ public final class DiscoveryModel extends Model {
 
     private void queryDiscoveries(
             boolean querySecretDiscoveries, boolean queryWorldDiscoveries, boolean queryTerritoryDiscoveries) {
-        WynntilsMod.info("Requesting rescan of discoveries in Content Book");
+        System.out.println("Requesting rescan of discoveries in Content Book");
 
         // This order is a bit arbitrary, but it's the order they appear in the Content Book,
         // so we can use this as a workaround to parse them faster.

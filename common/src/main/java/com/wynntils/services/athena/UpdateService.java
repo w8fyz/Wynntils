@@ -37,7 +37,7 @@ public final class UpdateService extends Service {
         CompletableFuture<String> future = new CompletableFuture<>();
 
         String stream = getStream();
-        WynntilsMod.info("Checking for update for stream " + stream + ".");
+        System.out.println("Checking for update for stream " + stream + ".");
 
         ApiResponse apiResponse =
                 Services.WynntilsAccount.callApi(UrlId.API_ATHENA_UPDATE_CHECK, Map.of("stream", stream));
@@ -79,7 +79,7 @@ public final class UpdateService extends Service {
         CompletableFuture<UpdateResult> future = new CompletableFuture<>();
 
         String stream = getStream();
-        WynntilsMod.info("Attempting to download update for stream " + stream + ".");
+        System.out.println("Attempting to download update for stream " + stream + ".");
 
         ApiResponse apiResponse =
                 Services.WynntilsAccount.callApi(UrlId.API_ATHENA_UPDATE_CHECK, Map.of("stream", stream));
@@ -157,7 +157,7 @@ public final class UpdateService extends Service {
 
             future.complete(UpdateResult.SUCCESSFUL);
 
-            WynntilsMod.info("Successfully downloaded Wynntils update!");
+            System.out.println("Successfully downloaded Wynntils update!");
 
             addShutdownHook(oldJar, newJar);
         } catch (IOException exception) {
@@ -178,7 +178,7 @@ public final class UpdateService extends Service {
                 FileUtils.copyFile(newJar, oldJar);
                 newJar.delete();
 
-                WynntilsMod.info("Successfully applied update!");
+                System.out.println("Successfully applied update!");
             } catch (IOException e) {
                 WynntilsMod.error("Cannot apply update!", e);
             }

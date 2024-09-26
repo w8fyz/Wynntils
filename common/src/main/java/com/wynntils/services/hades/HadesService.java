@@ -116,7 +116,7 @@ public final class HadesService extends Service {
             tryResendWorldData();
         }
 
-        WynntilsMod.info("Starting Hades Ping Scheduler Task");
+        System.out.println("Starting Hades Ping Scheduler Task");
 
         pingScheduler = Executors.newSingleThreadScheduledExecutor();
         pingScheduler.scheduleAtFixedRate(this::sendPing, 0, MS_PER_PING, TimeUnit.MILLISECONDS);

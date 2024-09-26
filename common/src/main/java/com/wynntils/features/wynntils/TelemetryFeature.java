@@ -50,7 +50,7 @@ public class TelemetryFeature extends Feature {
             String response = JsonUtils.getNullableJsonString(json, "message");
             String hash = JsonUtils.getNullableJsonString(json, "hash");
             if (response != null && response.equals("Crash report logged successfully.")) {
-                WynntilsMod.info("Crash reported to Athena as " + hash);
+                System.out.println("Crash reported to Athena as " + hash);
             } else {
                 WynntilsMod.warn("Failed to report crash reported to Athena: " + response);
             }

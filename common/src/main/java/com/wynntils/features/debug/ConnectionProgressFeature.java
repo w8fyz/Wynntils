@@ -21,15 +21,15 @@ public class ConnectionProgressFeature extends Feature {
     @SubscribeEvent
     public void onResourcePack(ServerResourcePackEvent.Load e) {
         if (!Managers.Connection.onServer()) return;
-        WynntilsMod.info("Connection confirmed");
+        System.out.println("Connection confirmed");
     }
 
     @SubscribeEvent
     public void onStateChange(WorldStateEvent e) {
         if (e.getNewState() == WorldState.WORLD) {
-            WynntilsMod.info("Entering world " + e.getWorldName());
+            System.out.println("Entering world " + e.getWorldName());
         } else if (e.getOldState() == WorldState.WORLD) {
-            WynntilsMod.info("Leaving world");
+            System.out.println("Leaving world");
         }
         String msg =
                 switch (e.getNewState()) {
@@ -42,7 +42,7 @@ public class ConnectionProgressFeature extends Feature {
                 };
 
         if (msg != null) {
-            WynntilsMod.info("WorldState change: " + msg);
+            System.out.println("WorldState change: " + msg);
         }
     }
 }

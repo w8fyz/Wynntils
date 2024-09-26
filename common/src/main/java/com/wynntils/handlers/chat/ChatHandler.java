@@ -283,12 +283,12 @@ public final class ChatHandler extends Handler {
 
                 if (newLines.getFirst().matches(EMPTY_LINE_PATTERN)) {
                     // Both the first and the last line are empty, we expect a dialogue screen in the next packet batch
-                    WynntilsMod.info("[NPC] - Confirmationless dialogue preparation screen detected");
+                    System.out.println("[NPC] - Confirmationless dialogue preparation screen detected");
                     // Nothing to do here, as both lines are empty
                     return;
                 }
 
-                WynntilsMod.info("[NPC] - Line expected to be a confirmationless dialogue: " + newLines.getFirst());
+                System.out.println("[NPC] - Line expected to be a confirmationless dialogue: " + newLines.getFirst());
                 expectedConfirmationlessDialogue = true;
             } else if (newLines.size() == 4) {
                 // This should happen as a special case.
@@ -307,7 +307,7 @@ public final class ChatHandler extends Handler {
                         && !newLines.get(2).matches(EMPTY_LINE_PATTERN)
                         && newLines.get(3).matches(EMPTY_LINE_PATTERN)) {
                     // The third line is a temporary confirmationless dialogue
-                    WynntilsMod.info("[NPC] - Temporary confirmationless dialogue detected");
+                    System.out.println("[NPC] - Temporary confirmationless dialogue detected");
                     expectedConfirmationlessDialogue = true;
 
                     // Remove the first two empty lines
@@ -344,7 +344,7 @@ public final class ChatHandler extends Handler {
             //       In the future, additional handling for converting temporary confirmationless dialogues
             //       to normal dialogues may be needed
             if (newLines.isEmpty()) {
-                WynntilsMod.info("[NPC] - Control message appended to the last dialogue");
+                System.out.println("[NPC] - Control message appended to the last dialogue");
                 return;
             }
 
@@ -535,7 +535,7 @@ public final class ChatHandler extends Handler {
         }
 
         // Normally § codes are stripped from the log; need this to be able to debug chat formatting
-        WynntilsMod.info("[CHAT] " + styledText.getString().replace("§", "&"));
+        System.out.println("[CHAT] " + styledText.getString().replace("§", "&"));
         RecipientType recipientType = getRecipientType(styledText, messageType);
 
         if (recipientType == RecipientType.NPC) {

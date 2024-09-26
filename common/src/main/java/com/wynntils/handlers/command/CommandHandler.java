@@ -37,7 +37,7 @@ public class CommandHandler extends Handler {
 
         if (commandQueueTicks <= 0 && !commandQueue.isEmpty()) {
             String command = commandQueue.poll();
-            WynntilsMod.info("Executing queued command: " + command);
+            System.out.println("Executing queued command: " + command);
             McUtils.mc().getConnection().sendCommand(command);
             commandQueueTicks = TICKS_PER_EXECUTE;
         }
@@ -53,7 +53,7 @@ public class CommandHandler extends Handler {
      */
     public void queueCommand(String command) {
         if (commandQueueTicks <= 0 && !Models.NpcDialogue.isInDialogue()) {
-            WynntilsMod.info("Executing queued command immediately: " + command);
+            System.out.println("Executing queued command immediately: " + command);
             McUtils.mc().getConnection().sendCommand(command);
             commandQueueTicks = TICKS_PER_EXECUTE;
         } else {
@@ -68,7 +68,7 @@ public class CommandHandler extends Handler {
      * @param command The command to execute. The leading '/' should not be included.
      */
     public void sendCommandImmediately(String command) {
-        WynntilsMod.info("Executing immediate command: " + command);
+        System.out.println("Executing immediate command: " + command);
         McUtils.mc().getConnection().sendCommand(command);
     }
 }

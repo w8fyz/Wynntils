@@ -30,7 +30,7 @@ public class GuildObjectiveScoreboardPart extends AbstractObjectivesScoreboardPa
         }
 
         if (Models.Objectives.getGuildObjective() == null) {
-            WynntilsMod.info("Adding " + objectives.size() + " guild objectives.");
+            System.out.println("Adding " + objectives.size() + " guild objectives.");
         }
 
         for (WynnObjective objective : objectives) {

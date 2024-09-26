@@ -4,6 +4,8 @@
  */
 package com.wynntils.models.items;
 
+import com.google.gson.Gson;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -17,7 +19,7 @@ public class WynnItemData {
     public static final String FAVORITE_KEY = "favorite";
     public static final String EMERALD_PRICE_KEY = "price";
 
-    private final Map<String, Object> cache = new HashMap<>();
+    public Map<String, Object> cache = new HashMap<>();
 
     public <T> T get(String key) {
         return (T) cache.get(key);
@@ -31,6 +33,13 @@ public class WynnItemData {
         } else {
             return get(key);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "WynnItemData{" +
+                "cache=" + new Gson().toJson(cache) +
+                '}';
     }
 
     public <T> void store(String key, T obj) {

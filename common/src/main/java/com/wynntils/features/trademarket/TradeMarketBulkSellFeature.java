@@ -76,7 +76,7 @@ public class TradeMarketBulkSellFeature extends Feature {
         if (!sendAmountMessage) return;
         if (!e.getOriginalStyledText().contains(TYPE_SELL_AMOUNT)) return;
 
-        WynntilsMod.info("Trying to bulk sell " + amountToSend + " items");
+        System.out.println("Trying to bulk sell " + amountToSend + " items");
 
         McUtils.sendChat(String.valueOf(amountToSend));
 

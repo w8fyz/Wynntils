@@ -68,7 +68,7 @@ public class SkillPointModel extends Model {
     public void saveSkillPoints(String name, int[] skillPoints) {
         SavableSkillPointSet assignedSkillPointSet = new SavableSkillPointSet(skillPoints);
         skillPointLoadouts.get().put(name, assignedSkillPointSet);
-        WynntilsMod.info("Saved skill point loadout: " + name + " " + assignedSkillPointSet);
+        System.out.println("Saved skill point loadout: " + name + " " + assignedSkillPointSet);
     }
 
     /**
@@ -113,7 +113,7 @@ public class SkillPointModel extends Model {
         SavableSkillPointSet assignedSkillPointSet =
                 new SavableSkillPointSet(skillPoints, weapon, armourNames, accessoryNames);
         skillPointLoadouts.get().put(name, assignedSkillPointSet);
-        WynntilsMod.info("Saved skill point build: " + name + " " + assignedSkillPointSet);
+        System.out.println("Saved skill point build: " + name + " " + assignedSkillPointSet);
     }
 
     public void saveCurrentBuild(String name) {

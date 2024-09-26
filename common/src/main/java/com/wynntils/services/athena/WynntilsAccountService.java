@@ -127,7 +127,7 @@ public final class WynntilsAccountService extends Service {
                         .forEach((k) ->
                                 encodedConfigs.put(k.getKey(), k.getValue().getAsString()));
                 loggedIn = true;
-                WynntilsMod.info("Successfully connected to Athena!");
+                System.out.println("Successfully connected to Athena!");
 
                 WynntilsMod.postEvent(new AthenaLoginEvent());
             });

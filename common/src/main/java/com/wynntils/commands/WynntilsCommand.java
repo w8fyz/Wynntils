@@ -362,7 +362,7 @@ public class WynntilsCommand extends Command {
         }
 
         CompletableFuture.runAsync(() -> {
-            WynntilsMod.info("Attempting to fetch Wynntils update.");
+            System.out.println("Attempting to fetch Wynntils update.");
             CompletableFuture<UpdateService.UpdateResult> completableFuture = Services.Update.tryUpdate();
 
             completableFuture.whenComplete((result, throwable) -> McUtils.sendMessageToClient(result.getMessage()));
