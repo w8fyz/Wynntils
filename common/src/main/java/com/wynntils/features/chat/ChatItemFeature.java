@@ -5,6 +5,7 @@
 package com.wynntils.features.chat;
 
 import com.wynntils.core.WynntilsMod;
+import com.wynntils.core.components.Managers;
 import com.wynntils.core.components.Models;
 import com.wynntils.core.components.Services;
 import com.wynntils.core.consumers.features.Feature;
@@ -17,12 +18,18 @@ import com.wynntils.core.persisted.config.ConfigCategory;
 import com.wynntils.core.text.PartStyle;
 import com.wynntils.core.text.StyledText;
 import com.wynntils.core.text.StyledTextPart;
+import com.wynntils.features.tooltips.ItemStatInfoFeature;
 import com.wynntils.handlers.chat.event.ChatMessageReceivedEvent;
+import com.wynntils.handlers.tooltip.impl.identifiable.IdentifiableTooltipBuilder;
 import com.wynntils.mc.event.KeyInputEvent;
 import com.wynntils.mc.mixin.accessors.ChatScreenAccessor;
 import com.wynntils.mc.mixin.accessors.ItemStackInfoAccessor;
+import com.wynntils.models.gear.type.GearInfo;
+import com.wynntils.models.gear.type.GearMetaInfo;
+import com.wynntils.models.gear.type.GearTier;
 import com.wynntils.models.items.FakeItemStack;
 import com.wynntils.models.items.WynnItem;
+import com.wynntils.models.items.WynnItemData;
 import com.wynntils.models.items.encoding.type.EncodingSettings;
 import com.wynntils.models.items.items.game.GearItem;
 import com.wynntils.models.items.properties.GearTierItemProperty;
@@ -45,6 +52,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.resources.language.I18n;
@@ -52,6 +60,7 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.EventPriority;
@@ -164,31 +173,56 @@ public class ChatItemFeature extends Feature {
             return;
         }
 
+        //Trying to spoof the item
         Optional<WynnItem> wynnItemOpt = Models.Item.getWynnItem(hoveredSlot.getItem());
         if (wynnItemOpt.isEmpty()) return;
 
+        WynnItem spoofed = wynnItemOpt.get();
+        System.out.println("SPOOFED TABLE : ");
+        System.out.println("ITEMSTACK_KEY : "+spoofed.getData().get(WynnItemData.ITEMSTACK_KEY));
+        System.out.println("HIGHLIGHT_KEY : "+spoofed.getData().get(WynnItemData.HIGHLIGHT_KEY));
+        System.out.println("OVERLAY_KEY : "+spoofed.getData().get(WynnItemData.OVERLAY_KEY));
+        System.out.println("TOOLTIP_KEY : "+spoofed.getData().get(WynnItemData.TOOLTIP_KEY));
+        System.out.println("SEARCHED_KEY : "+spoofed.getData().get(WynnItemData.SEARCHED_KEY));
+        System.out.println("FAVORITE_KEY : "+spoofed.getData().get(WynnItemData.FAVORITE_KEY));
+        System.out.println("EMERALD_PRICE_KEY : "+spoofed.getData().get(WynnItemData.EMERALD_PRICE_KEY));
+
+        IdentifiableTooltipBuilder builder = spoofed.getData().get(WynnItemData.TOOLTIP_KEY);
+        System.out.println("ITEM INFO : "+builder.itemInfo.getItemInfo());
+
+        if(builder.itemInfo.getItemInfo() instanceof GearInfo info) {
+            System.out.println("SPOOFED ///");
+            GearMetaInfo metaInfo = info.metaInfo();
+            GearMetaInfo spoofedMetaInfo = new GearMetaInfo(metaInfo.restrictions(), metaInfo.material(), metaInfo.obtainInfo(),Optional.of(StyledText.fromString("Yeah")), Optional.of("Deltas Infoss"), metaInfo.allowCraftsman(), metaInfo.preIdentified());
+            GearInfo spoofedInfo = new GearInfo("Detals Legacy", info.type(), GearTier.FABLED, info.powderSlots(), spoofedMetaInfo, info.requirements(), info.fixedStats(), info.variableStats(), info.setInfo());
+
+            spoofed.getData().store(WynnItemData.TOOLTIP_KEY, spoofedInfo);
+
+            System.out.println("SPOOFED INFO : "+spoofed.getData().get(WynnItemData.TOOLTIP_KEY));
+        }
+
         // Don't try to encode unsupported items
-        if (!Models.ItemEncoding.canEncodeItem(wynnItemOpt.get())) return;
+        if (!Models.ItemEncoding.canEncodeItem(spoofed)) return;
 
         if (share) {
             if (showSharingScreen.get()) {
-                McUtils.mc().setScreen(ItemSharingScreen.create(wynnItemOpt.get(), hoveredSlot.getItem()));
+                McUtils.mc().setScreen(ItemSharingScreen.create(spoofed, hoveredSlot.getItem()));
             } else {
-                makeChatPrompt(wynnItemOpt.get());
+                makeChatPrompt(spoofed);
             }
         } else {
             ItemStack itemStackToSave = hoveredSlot.getItem();
 
             // Gear items can have their item changed by cosmetics so we need to get their original item
             // FIXME: Does not work for crafted gear
-            if (wynnItemOpt.get() instanceof GearItem gearItem) {
+            if (spoofed instanceof GearItem gearItem) {
                 itemStackToSave = new FakeItemStack(gearItem, "From " + McUtils.playerName() + "'s Item Record");
             }
 
             // Item name is passed in since it is lost in the instanceof check above and looks nicer
             // saying "Saved Gale's Force to your Item Record" than "Saved Bow to your Item Record"
             Services.ItemRecord.saveItem(
-                    wynnItemOpt.get(), itemStackToSave, hoveredSlot.getItem().getHoverName());
+                    spoofed, itemStackToSave, hoveredSlot.getItem().getHoverName());
         }
     }
 

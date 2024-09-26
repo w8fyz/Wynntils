@@ -13,6 +13,7 @@ import com.wynntils.core.consumers.screens.WynntilsScreen;
 import com.wynntils.core.text.StyledText;
 import com.wynntils.models.items.FakeItemStack;
 import com.wynntils.models.items.WynnItem;
+import com.wynntils.models.items.annotators.game.GearAnnotator;
 import com.wynntils.models.items.encoding.type.EncodingSettings;
 import com.wynntils.models.items.items.game.CraftedConsumableItem;
 import com.wynntils.models.items.items.game.CraftedGearItem;
@@ -136,15 +137,8 @@ public final class ItemSharingScreen extends WynntilsScreen {
         // Encode the item with the selected settings
         EncodingSettings encodingSettings = new EncodingSettings(
                 Models.ItemEncoding.extendedIdentificationEncoding.get(), Models.ItemEncoding.shareItemName.get());
-        /*ErrorOr<EncodedByteBuffer> errorOrEncodedByteBuffer =
-                Models.ItemEncoding.encodeItem(wynnItem, encodingSettings);*/
-
-        ItemStack itemstackEdited = new FakeItemStack(wynnItem, "From dev");
-        WynnItem wynnItemEdited = new WynnItem();
-        wynnItemEdited.onUpdate(itemstackEdited);
-
         ErrorOr<EncodedByteBuffer> errorOrEncodedByteBuffer =
-                Models.ItemEncoding.encodeItem(wynnItemEdited, encodingSettings);
+                Models.ItemEncoding.encodeItem(wynnItem, encodingSettings);
         if (errorOrEncodedByteBuffer.hasError()) {
             WynntilsMod.error("Failed to encode item: " + errorOrEncodedByteBuffer.getError());
             previewItemStack = null;

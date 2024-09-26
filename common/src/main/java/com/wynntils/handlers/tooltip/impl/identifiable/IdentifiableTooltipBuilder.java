@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
  * @param <U> The type of the gear instance
  */
 public final class IdentifiableTooltipBuilder<T, U> extends TooltipBuilder {
-    private final IdentifiableItemProperty<T, U> itemInfo;
+    public IdentifiableItemProperty<T, U> itemInfo;
 
     private IdentifiableTooltipBuilder(
             IdentifiableItemProperty<T, U> itemInfo, List<Component> header, List<Component> footer) {
