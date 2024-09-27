@@ -21,8 +21,11 @@ import com.wynntils.core.text.StyledText;
 import com.wynntils.core.text.StyledTextPart;
 import com.wynntils.features.tooltips.ItemStatInfoFeature;
 import com.wynntils.handlers.chat.event.ChatMessageReceivedEvent;
+import com.wynntils.handlers.item.ItemAnnotation;
+import com.wynntils.handlers.item.ItemHandler;
 import com.wynntils.handlers.tooltip.impl.identifiable.IdentifiableTooltipBuilder;
 import com.wynntils.mc.event.KeyInputEvent;
+import com.wynntils.mc.extension.ItemStackExtension;
 import com.wynntils.mc.mixin.accessors.ChatScreenAccessor;
 import com.wynntils.mc.mixin.accessors.ItemStackInfoAccessor;
 import com.wynntils.models.gear.type.GearInfo;
@@ -176,9 +179,17 @@ public class ChatItemFeature extends Feature {
             return;
         }
 
-        ItemStack spoofItem = Minecraft.getInstance().player.getItemBySlot(EquipmentSlot.HEAD);
-
-        spoofItem.set(DataComponents.CUSTOM_NAME, Component.literal("Ouais ouais ouais"));
+        ItemStack spoofItem = hoveredSlot.getItem().copy();
+        Optional<ItemAnnotation> annotationOpt = ItemHandler.getItemStackAnnotation(spoofItem);
+        if(annotationOpt.isEmpty()) {
+            System.out.println("Annotation is empty");
+            return;
+        }
+        ItemAnnotation annotation = annotationOpt.get();
+        ItemStackExtension itemStackExtension = (ItemStackExtension) spoofItem;
+        itemStackExtension.setAnnotation(annotation);
+        itemStackExtension.setOriginalName(StyledText.fromString("OUAIS OUAIS OUAIS"));
+        annotation.onUpdate(spoofItem);
 
         Optional<WynnItem> wynnItemOpt = Models.Item.getWynnItem(spoofItem);
         if (wynnItemOpt.isEmpty()) return;
